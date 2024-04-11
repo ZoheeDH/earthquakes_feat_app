@@ -2,7 +2,7 @@
 The backend was developed using Sinatra and MongoDB 
 
 ## Instructions
-**Important:** MongoDB must be installed for the api to work properly
+**Important:** MongoDB must be installed and running for the api to work properly
 
 To seed the project from https://earthquake.usgs.gov/ run the following command
 
