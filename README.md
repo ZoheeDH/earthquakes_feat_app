@@ -1,4 +1,4 @@
-# frogmi_backend
+# earthquakes_feat_app
 The backend was developed using Sinatra and MongoDB 
 
 ## Instructions
