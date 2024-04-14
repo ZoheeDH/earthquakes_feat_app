@@ -17,7 +17,7 @@ get '/' do
   to filter by mag_type, page and/or per_page <br/>
   /api/features/:id/comments to send a POST request with a comment about the feture with id :id <br/><br/>
   mag_types: md,ml,ms,mw,me,mi,mb,mlg (e.g: mag_type[]=md, mag_type[]=md&mag_type[]=ml<br/>
-  per_page: default 10, max 1000 (otherwise the default value will be used)'
+  per_page: default 1000, (otherwise the default value will be used)'
 end
 
 namespace '/api' do
@@ -26,7 +26,7 @@ namespace '/api' do
     filters = params.select{|k,v| ["mag_type", "page", "per_page"].include?(k)}
     mag_type = filters.key?(:mag_type) ? filters['mag_type'] : nil
     page = filters.key?(:page) ? filters['page'].to_i : 1
-    per_page = (filters.key?(:per_page) and filters['per_page'].to_i <= 1000) ? filters['per_page'].to_i : 10
+    per_page = (filters.key?(:per_page) and filters['per_page'].to_i <= 1000) ? filters['per_page'].to_i : 1000
 
     if (mag_type)
       #fetching data from db if filter by mag_type

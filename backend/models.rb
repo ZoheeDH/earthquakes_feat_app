@@ -24,7 +24,7 @@ class Quake
 
   field :_id, type: String
   field :external_id, type: String
-  field :mag, type: Float
+  field :magnitude, type: Float
   field :place, type: String
   field :time, type: Integer
   field :tsunami, type: Integer
@@ -36,7 +36,7 @@ class Quake
   validates :title, presence: true
   validates :place, presence: true
   validates :mag_type, presence: true
-  validates :mag, inclusion: -1.0..10.0
+  validates :magnitude, inclusion: -1.0..10.0
 end
 
 class Coord

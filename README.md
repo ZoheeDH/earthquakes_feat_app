@@ -7,6 +7,7 @@ The backend was developed using Sinatra and MongoDB
 To seed the project from https://earthquake.usgs.gov/ run the following command
 
 ```
+cd backend
 rake get_data
 ```
 

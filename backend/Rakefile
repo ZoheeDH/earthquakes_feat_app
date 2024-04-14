@@ -15,7 +15,7 @@ task :get_data do
         type: 'feature',
         attributes: {
           external_id: feature['id'],
-          mag: properties['mag'],
+          magnitude: properties['mag'],
           place: properties['place'],
           time: properties['time'],
           tsunami: properties['tsunami'],
