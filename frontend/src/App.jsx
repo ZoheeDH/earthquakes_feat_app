@@ -1,13 +1,15 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import featureService from './services/features'
 import Feature from './components/Feature'
 import FilterForm from './components/FilterForm'
+import Notification from './components/Notification'
 
 const App = () => {
   const [features, setFeatures] = useState([])
   const [pagination, setPagination] = useState({})
   const [filter, setFilter] = useState('')
-  const [currentPage, setCurrentPage] = useState(1)
+  const [message, setMessage] = useState(null)
+  const [messageType, setMessageType] = useState('success')
 
   useEffect(() => {
     featureService
@@ -27,19 +29,21 @@ const App = () => {
       })
   }
 
+  const filterRef = useRef()
+
   const handlePrev = (event) => {
     event.preventDefault()
     let aux=filter
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1)
+    if (filterRef.current.currentPage > 1) {
+      filterRef.current.setCurrentPage(filterRef.current.currentPage - 1)
       if (aux.match(/(\?|&)page/)) {
         aux = aux.includes('?page')
-        ? aux.replace(/\?page=\d*/, '?page=' + (currentPage - 1))
-        : aux.replace(/&page=\d*/, '&page=' + (currentPage - 1))
+        ? aux.replace(/\?page=\d*/, '?page=' + (filterRef.current.currentPage - 1))
+        : aux.replace(/&page=\d*/, '&page=' + (filterRef.current.currentPage - 1))
       } else {
         aux = aux.includes('?')
-        ? aux.concat(`&page=${currentPage - 1}`)
-        : aux.concat(`?page=${currentPage - 1}`)
+        ? aux.concat(`&page=${filterRef.current.currentPage - 1}`)
+        : aux.concat(`?page=${filterRef.current.currentPage - 1}`)
       }
       filterFeatures(aux)
       setFilter(aux)
@@ -50,25 +54,41 @@ const App = () => {
     event.preventDefault()
     let aux=filter
     console.log(aux)
-    if (currentPage < pagination.total) {
-      setCurrentPage(currentPage + 1)
+    if (filterRef.current.currentPage < pagination.total) {
+      filterRef.current.setCurrentPage(filterRef.current.currentPage + 1)
       if (aux.match(/(\?|&)page/)) {
         aux = aux = aux.includes('?page')
-        ? aux.replace(/\?page=\d*/, '?page=' + (currentPage + 1))
-        : aux.replace(/&page=\d*/, '&page=' + (currentPage + 1))
+        ? aux.replace(/\?page=\d*/, '?page=' + (filterRef.current.currentPage + 1))
+        : aux.replace(/&page=\d*/, '&page=' + (filterRef.current.currentPage + 1))
       } else {
         aux = aux.includes('?')
-          ? aux.concat(`&page=${currentPage + 1}`)
-          : aux.concat(`?page=${currentPage + 1}`)
+          ? aux.concat(`&page=${filterRef.current.currentPage + 1}`)
+          : aux.concat(`?page=${filterRef.current.currentPage + 1}`)
       }
       filterFeatures(aux)
       setFilter(aux)
     }
   }
 
+  const handleNotification = ({ msg, type='success' }) => {
+    setMessage(msg)
+    setMessageType(type)
+    setTimeout(() => {
+      setMessage(null)
+      setMessageType(type === 'error' ? 'success' : 'error')
+    }, 5000)
+  }
+
   const handleComment = async ({feat_id, body}) => {
-    await featureService
+    try{
+      await featureService
       .addComment({ feat_id, body })
+      handleNotification({ msg: 'comment added successfully' })
+    } catch(err){
+      console.log(err)
+      handleNotification({ msg: err.response.data.error, type: 'error' })
+    }
+    
   }
 
   return (
@@ -77,10 +97,10 @@ const App = () => {
       <FilterForm 
         filterFeat={filterFeatures}
         pagination={pagination}
-        setFilter={setFilter}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}  
+        setFilter={setFilter} 
+        notif={handleNotification}
       />
+      <Notification msg={message} type={messageType}/>
       {features.map(feature => (
         <Feature 
           key={feature.id}

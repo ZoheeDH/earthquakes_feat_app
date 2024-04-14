@@ -49,7 +49,7 @@ const Feature = ({ feature, onComment }) => {
               <a href={feature.links.external_url} target="_blank">{ feature.links.external_url }</a>
             </li>
           </ul>
-          <CommentForm feat_id={feature.id} sendComment={onComment}/>
+          <CommentForm feat_id={feature.id} sendComment={onComment} />
         </div>
       </div>
     </div>    

@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-const CommentForm = ({ feat_id, sendComment}) => {
+const CommentForm = ({ feat_id, sendComment }) => {
   const [viewComment, setViewComment] = useState(false)
   const [comment, setComment] = useState('')
 
