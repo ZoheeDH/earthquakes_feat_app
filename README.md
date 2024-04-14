@@ -32,5 +32,5 @@ npm install
 npm run preview //or npm run dev to start dev server
 ```
 
-*The frontend was developed using almost no CSS, considering the instructions were to use HTML and JavaScript only
+_Developed by: Benjamin Barrientos_
  
