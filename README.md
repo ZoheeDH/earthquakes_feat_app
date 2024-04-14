@@ -4,7 +4,7 @@ The project was developed using Sinatra and MongoDB for the backend and ReactJS 
 ## Instructions
 **Important:** MongoDB must be installed and running for the api to work properly
 
-To seed the project from https://earthquake.usgs.gov/ run the following command
+To seed the project from https://earthquake.usgs.gov/ run the following commands
 
 ```
 cd backend
