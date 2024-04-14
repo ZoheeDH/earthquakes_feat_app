@@ -81,7 +81,7 @@ namespace '/api' do
         status 200
         body 'comment created'
       end
-    rescue WEBrick::HTTPStatus::LengthRequired
+    rescue JSON::ParserError
       status 400
       body JSON.generate({ error: "body is missing in request" })
     end

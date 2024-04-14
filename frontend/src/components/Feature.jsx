@@ -1,6 +1,7 @@
 import { useState } from "react"
+import CommentForm from "./CommentForm"
 
-const Feature = ({ feature }) => {
+const Feature = ({ feature, onComment }) => {
   const featureStyle = {
     paddingTop: 10,
     paddingLeft: 2,
@@ -13,15 +14,13 @@ const Feature = ({ feature }) => {
   
   const hideDetails = {display: visible ? 'none' : ''}
   const showDetails = {display: visible ? '' : 'none'}
-
+  
   const calculateDate = (time) => {
     const date = new Date(time)
     return date.toUTCString()
   }
 
-  const handleDetails = () => {
-    setVisible(!visible)
-  }
+  const handleDetails = () => setVisible(!visible)
 
   return (
     <div style={featureStyle}>
@@ -50,6 +49,7 @@ const Feature = ({ feature }) => {
               <a href={feature.links.external_url} target="_blank">{ feature.links.external_url }</a>
             </li>
           </ul>
+          <CommentForm feat_id={feature.id} sendComment={onComment}/>
         </div>
       </div>
     </div>    

@@ -7,8 +7,8 @@ const getFeatures = async ({ filter = '' }) => {
   return request.data
 }
 
-const addComment = async ({ feat_id, comment }) => {
-  const request = await axios.post(`${baseUrl}/${feat_id}/comments`, comment)
+const addComment = async ({ feat_id, body }) => {
+  const request = await axios.post(`${baseUrl}/${feat_id}/comments`, body)
   return request
 }
 

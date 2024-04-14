@@ -66,6 +66,11 @@ const App = () => {
     }
   }
 
+  const handleComment = async ({feat_id, body}) => {
+    await featureService
+      .addComment({ feat_id, body })
+  }
+
   return (
     <div>
       <h1>Past 30 days earthquakes</h1>
@@ -76,7 +81,13 @@ const App = () => {
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}  
       />
-      {features.map(feature => (<Feature key={feature.id} feature={feature} />))}
+      {features.map(feature => (
+        <Feature 
+          key={feature.id}
+          feature={feature}
+          onComment={handleComment}
+        />
+      ))}
       <div>
         <button style={{marginRight: '5px'}} onClick={handlePrev}>{'Previus'}</button>
         { `${pagination.current_page} of ${pagination.total}` }
