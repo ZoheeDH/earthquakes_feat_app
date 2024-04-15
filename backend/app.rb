@@ -1,12 +1,11 @@
 require 'sinatra'
 require "sinatra/namespace"
-require 'dotenv/load'
 
 require 'json'
 require './models'
 
 #Sinatra setup
-set :port, (ENV['PORT'] or 3000)
+set :port, 3000
 
 
 

@@ -18,7 +18,7 @@ bundle install
 bundle exec ruby app.rb 
 ```
 
-The api will be deployed in port 3000 or the one provided by an env variable (PORT).
+The api will be deployed in port 3000.
 
 
 The available routes are:
